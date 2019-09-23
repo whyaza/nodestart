@@ -24,10 +24,12 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 //安装问题的一些:
 +   cnpm install --save axios
 +   根目录下添加:postcss.config.js:
+```
 写入module.exports = {
   plugins: {
     'autoprefixer': {browsers: 'last 5 version'}
   }
 }
+```
 + cnpm install express@next cors mongoose  服务器 
 
