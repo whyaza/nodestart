@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import looks from '@/components/look'
-import insert from '@/components/insert'
-import edit from '@/components/edit'
+import first from '@/components/front/first'
+import looks from '@/components/back/look'
+import insert from '@/components/back/insert'
+import edit from '@/components/back/edit'
+import login from '@/components/front/login'
 
 Vue.use(Router)
 
@@ -11,8 +12,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'FirstIndex',
+      component: first
     },
     {
       path: '/look',
@@ -29,6 +30,10 @@ export default new Router({
       path: '/edit/:id',
       name: 'edit',
       component: edit
+    },
+    {
+      path: '/login',
+      component: login
     }
   ]
 })
