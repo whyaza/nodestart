@@ -38,6 +38,16 @@ export default {
     fetch(){
       //一般fetch方法就是获取数据的
       this.$http.get('/articles').then(res => {
+        //看是否登录过期
+        console.log(res);
+        if (res.status === 403){
+          this.$message({
+              showClose: true,
+              message: res.msg
+          });
+          this.$router.push({path: '/login'});
+        }
+
         this.articles = res.data
       })
     },
@@ -64,6 +74,8 @@ export default {
     }
   },
   created() {
+
+    //if (this.$store.getters.getToken){
     this.fetch();
   },
   components:{

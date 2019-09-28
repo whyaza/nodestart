@@ -8,6 +8,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item><router-link to="/look">查看</router-link></el-dropdown-item>
               <el-dropdown-item><router-link to="/insert">新增</router-link></el-dropdown-item>
+              <el-dropdown-item><el-button @click="logout()">用户退出</el-button></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <span>WHY-Home</span>
@@ -25,6 +26,13 @@ export default {
         
       };
   },
+  methods:{
+    logout(){
+      this.$store.dispatch("del_token");
+      this.$http.defaults.headers.common['token'] = '';
+      this.$router.push({path:'/'});
+    }
+  }
 }
 </script>
 

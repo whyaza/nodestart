@@ -1,4 +1,6 @@
 const express = require('express') 
+const JwtUtil = require('./jwt'); // 引入jwt token工具
+
 var fs = require("fs")  //读取本地文件
 const app = express()
 
@@ -21,6 +23,32 @@ app.all("*",function(req,res,next){
     }
 }
 );
+
+//进行请求拦截:除了前front里面的，对back里面的都进行拦截
+app.use(function (req, res, next){
+    //一共三个接口不需要拦截：
+    //  /imgCode   /lone /api/fr/articles
+    console.log(req.headers);
+    console.log(req.headers.token);
+    console.log(req.url);
+    //登录后，现在到了前台能传过来：第一次，验证好使，之后不好使了？？。。。
+    if (req.url != '/api/fr/articles' && req.url != '/api/imgCode' && req.url != '/api/lone') {
+        let token = req.headers.token;
+        let jwt = new JwtUtil(token);
+        let result = jwt.verifyToken();
+        console.log('result是：',result);
+        // 如果考验通过就next，否则就返回登陆信息不正确
+        if (result == 'err') {
+            console.log(result);
+            res.send({status: 403, msg: '登录已过期,请重新登录',res: result});
+            // res.render('login.html');
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
 
 const mongoose = require('mongoose')
 //只要在本机安装了mongoose就可以，都不需要数据库创建，他会自动创建
@@ -68,6 +96,12 @@ app.get('/api/articles', async(req, res) => {
     res.send(articles);
 })
 
+//前端获取文件列表接口,无需验证,在拦截器上去除
+app.get('/api/fr/articles', async(req, res) => {
+    const articles = await Article.find()
+    res.send(articles);
+})
+
 //删除文章
 app.delete('/api/articles/:id', async(req, res)  => {
     await Article.findByIdAndDelete(req.params.id);  //上面的那个id相对应
@@ -90,15 +124,18 @@ app.put('/api/articles/:id', async(req, res)  => {
 
 //用户根据login.conf里面的口令登录
 app.post('/api/lone', async(req, res)  => {
-    console.log(req.body.pass);
     fs.readFile('./server/login.conf', function (err, data) {   //读取路径是：以启动server.js的位置为基准的
         if (err) {
             res.send(false);
         }
         if (data.toString() === req.body.pass){
-            res.send(true);
+            // 登陆成功，添加token验证
+            let sid = req.body.pass + req.body.seccode; //密码 和 验证码组成其sid
+            let jwt = new JwtUtil(sid); //将用户sid传入，生成token
+            let token = jwt.generateToken();
+            res.send({status:200,msg:'登陆成功',token:token});
         }else{
-            res.send(false);
+            res.send({status:404,msg:'口令错误'})
         }
     });
 })
@@ -114,7 +151,6 @@ app.get('/api/imgCode', async(req, res)  => {
 			code += random[index]; //根据索引取得随机数加到code上  
 		}
         this.checkCode = code; //把code值赋给验证码  
-        console.log(code);
         res.send(code);
 
 })

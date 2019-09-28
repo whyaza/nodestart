@@ -24,7 +24,7 @@ export default {
     methods: {
           fetch(){
           //一般fetch方法就是获取数据的
-          this.$http.get('/articles').then(res => {
+          this.$http.get('/fr/articles').then(res => {
             this.articles = res.data
           })
         },
@@ -36,6 +36,7 @@ export default {
       }
     },
     created(){
+      console.log(this.$http.token);
       this.fetch();
     }
 }
