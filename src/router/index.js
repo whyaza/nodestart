@@ -5,6 +5,8 @@ import looks from '@/components/back/look'
 import insert from '@/components/back/insert'
 import edit from '@/components/back/edit'
 import login from '@/components/front/login'
+import home from '@/components/front/home'
+import aboutme from '@/components/front/aboutme'
 
 Vue.use(Router)
 
@@ -12,8 +14,18 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: home
+    },
+    {
+      path: '/first',
       name: 'FirstIndex',
       component: first
+    },
+    {
+      path: '/aboutme',
+      name: 'aboutme',
+      component: aboutme
     },
     {
       path: '/look',

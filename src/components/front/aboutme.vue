@@ -31,19 +31,18 @@
           </div>
 
           <div class="inner cover">
-           <el-collapse @change="handleChange" >
-              <div v-for="article in articles" :key="article.time">
-                <el-collapse-item :title="article.time +'        ' + article.title">
-                  <div>{{  article.body }}</div>
-                </el-collapse-item>
-              </div>
-            </el-collapse>
+            <h1 class="cover-heading">
+              <img src="http://pic.qqtn.com/up/2018-5/15260086997731703.jpg" alt="gravatar.png" style="border-radius:50%;height: 100px;width:100px">
+            </h1>
+            <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+            <p class="lead">
+              <a href="#" class="btn btn-lg btn-default">Learn more</a>
+            </p>
           </div>
 
           <div class="mastfoot">
             <div class="inner">
               <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@wuhongyu</a>.</p>
-              <el-button @click="tologin()">后台管理</el-button>
             </div>
           </div>
 
@@ -87,14 +86,5 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-.el-collapse-item__header{
-    background-color: #333333;
-    color: #FFFFFF;
-}
-.el-collapse-item__content {
-    color: #FFFFFF;
-    background-color: #444444;
-}
-
+<style scoped>
 </style>
