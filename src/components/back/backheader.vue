@@ -8,7 +8,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item><router-link to="/look">查看</router-link></el-dropdown-item>
               <el-dropdown-item><router-link to="/insert">新增</router-link></el-dropdown-item>
-              <el-dropdown-item><el-button @click="logout()">用户退出</el-button></el-dropdown-item>
+              <el-dropdown-item @click="logout()">用户退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <span>WHY-Home</span>
@@ -44,10 +44,6 @@ h1, h2 {
 ul {
   list-style-type: none;
   padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
 }
 a {
   color: #42b983;

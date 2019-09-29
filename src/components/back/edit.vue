@@ -9,7 +9,7 @@
             <el-input v-model="article.title"></el-input>
         </el-form-item>
         <el-form-item label="内容">
-            <el-input v-model="article.body"></el-input>
+            <el-input type="textarea" v-model="article.body"></el-input>
         </el-form-item>
         <el-button type="primary" @click="save">保存</el-button>
     </el-form>
