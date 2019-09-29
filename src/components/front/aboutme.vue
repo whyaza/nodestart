@@ -32,11 +32,22 @@
 
           <div class="inner cover">
             <h1 class="cover-heading">
-              <img src="http://pic.qqtn.com/up/2018-5/15260086997731703.jpg" alt="gravatar.png" style="border-radius:50%;height: 100px;width:100px">
+              <img src="../../../static/me5.jpeg" alt="gravatar.png" style="border-radius:50%;height: 100px;width:100px">
             </h1>
-            <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
             <p class="lead">
-              <a href="#" class="btn btn-lg btn-default">Learn more</a>
+              吴洪宇 一个普通人
+            </p>
+            <p class="lead">
+              喜欢的事情有很多
+            </p>
+            <p class="lead">
+              不喜欢的事情也很多
+            </p>
+            <p class="lead">
+              不喜欢麻烦的事情呢
+            </p>
+            <p class="lead">
+              做人嘛 开心最重要
             </p>
           </div>
 
@@ -60,28 +71,8 @@
 export default {
   name: 'first',
    data() {
-      return {
-        articles: {}
-      };
-    },
-    methods: {
-          fetch(){
-          //一般fetch方法就是获取数据的
-          this.$http.get('/fr/articles').then(res => {
-            this.articles = res.data
-          })
-        },
-      handleChange(val) {
-        console.log(val);
-      },
-      tologin(){
-        this.$router.push({path:"/login"});
-      }
-    },
-    created(){
-      console.log(this.$http.token);
-      this.fetch();
-    }
+      return {}
+  },
 }
 </script>
 

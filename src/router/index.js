@@ -50,18 +50,6 @@ const router = new Router({
   ]
 })
 
-//添加导航守卫
-router.beforeEach((to, from, next) => {
-  if (to.path === '/login' || to.path === '/') {
-    next();
-  } else {
-    let token = localStorage.getItem('token');
-    if (!token) {
-      next('/login');
-    } else {
-      next();
-    }
-  }
-});
+//添加导航守卫;先别添加
 
 export default router;
