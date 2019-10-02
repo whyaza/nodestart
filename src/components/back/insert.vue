@@ -1,6 +1,5 @@
 <template>
   <div class="insert">
-    <hd></hd>
     <h1>编辑页面</h1>
     <el-form label-width="80px">
         <el-form-item label="主题">
@@ -15,7 +14,6 @@
 </template>
 
 <script>
-import hd from './backheader'
 import { Message } from 'element-ui';
 export default {
   name: 'insert',
@@ -37,9 +35,6 @@ export default {
           })
       }
   },
-  components:{
-    hd
-  }
 }
 </script>
 

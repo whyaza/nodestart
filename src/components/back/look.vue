@@ -1,8 +1,7 @@
 <template>
   <div class="look">
-      <hd></hd>
       <h1 class="pull-left">随想管理   主页面</h1>
-      <h1 class="pull-right"><router-link to="/insert">新增</router-link></h1>
+      <h1 class="pull-right"><router-link to="/insert" class="btn default-button">新增</router-link></h1>
       <el-table :data="articles">
         <el-table-column prop="time" label="日期" width="140">
         </el-table-column>
@@ -28,7 +27,6 @@
 </template>
 
 <script>
-import hd from './backheader'
 export default {
   name: 'look',
   data() {
@@ -84,26 +82,12 @@ export default {
   created() {
     this.fetch();
   },
-  components:{
-    hd
-  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.look{
+    background-color: #FFFFFF;
 }
 </style>

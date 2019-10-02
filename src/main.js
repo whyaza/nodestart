@@ -11,13 +11,14 @@ import axios from 'axios'
 //引入vuex,进行状态管理
 import store from '../store/index'
 
+//引入自定义样式的elementui的css （black）
+import '../theme/index.css'
+
 Vue.use(ElementUI);
 
 //之后使用this.$http  就相当于是使用axios
 Vue.prototype.$http = axios.create({
-  //创建一个axios实例，指定接口根地址
-  baseURL: 'http://localhost:3000/api',
-  headers: {}
+  baseURL: '/api',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 })
 
 const token = localStorage.getItem('token')

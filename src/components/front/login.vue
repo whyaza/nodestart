@@ -45,7 +45,7 @@ export default {
                   //设置：全局带token
                   this.$http.defaults.headers.common['token'] = this.$store.state.token;
 
-                  this.$router.push({path:'/look'});
+                  this.$router.push({path:'/back'});
                 }else{
                   this.$message({
                     showClose: true,
@@ -66,19 +66,5 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
 </style>

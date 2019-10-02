@@ -12,7 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     //开启代理服务器，解决跨域问题
     proxyTable: {
-      '/api': {
+      
+      '/api': { //浏览器console是看不出来的
         target: 'http://localhost:3000/api',//要访问的后端接口
         changeOrigin: true,
         pathRewrite: {

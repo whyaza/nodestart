@@ -1,6 +1,6 @@
 <template>
  
-    <!--<h1>This is WHY home</h1>
+  <div class="inner cover">
     <el-collapse @change="handleChange" >
       <div v-for="article in articles" :key="article.time">
         <el-collapse-item :title="article.time +'        ' + article.title">
@@ -9,52 +9,9 @@
       </div>
     </el-collapse>
 
-    <el-button @click="tologin()">后台管理</el-button>-->
+    <button class="btn btn-default" @click="tologin()">后台管理</button>
+  </div>
 
-  <div class="site-wrapper">
-
-      <div class="site-wrapper-inner">
-
-        <div class="cover-container">
-
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">WHY-Home</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li>    <router-link to="/">主页</router-link>    </li>
-                  <li>    <router-link to="/first">随想</router-link>    </li>
-                  <li>    <router-link to="/aboutme">关于我</router-link>    </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-
-          <div class="inner cover">
-           <el-collapse @change="handleChange" >
-              <div v-for="article in articles" :key="article.time">
-                <el-collapse-item :title="article.time +'        ' + article.title">
-                  <div>{{  article.body }}</div>
-                </el-collapse-item>
-              </div>
-            </el-collapse>
-          </div>
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@wuhongyu</a>.</p>
-              <el-button @click="tologin()">后台管理</el-button>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
- 
-  
 </template>
 
 <script>
@@ -87,14 +44,13 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-.el-collapse-item__header{
-    background-color: #333333;
-    color: #FFFFFF;
-}
-.el-collapse-item__content {
-    color: #FFFFFF;
-    background-color: #444444;
-}
+<!--
+添加scoped的话，你只能控制.page{width:100px;}及其内部的样式，像这种body，html需要在全局进行设置；
+并且你若是在全局样式中写了另一个.page{width:50px;}，也会影响到当前页面的.page
 
+//要更改上层组件，
+1.加上 /deep/
+2.去掉 scoped  尽量不要这样，
+-->
+<style scoped>
 </style>

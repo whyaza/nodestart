@@ -1,6 +1,5 @@
 <template>
   <div class="edit">
-    <hd></hd>
     <el-form label-width="80px">
         <el-form-item label="时间">
         <el-input v-model="article.time"></el-input>
@@ -17,7 +16,6 @@
 </template>
 
 <script>
-import hd from './backheader'
 import { Message } from 'element-ui';
 export default {
   name: 'edit',
@@ -46,9 +44,6 @@ export default {
   },
   created(){
     this.fetch();
-  },
-  components:{
-    hd
   }
 }
 </script>

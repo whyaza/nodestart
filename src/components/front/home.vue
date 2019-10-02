@@ -1,49 +1,16 @@
 <template>
-  <div class="site-wrapper">
-
-      <div class="site-wrapper-inner">
-
-        <div class="cover-container">
-
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">WHY-Home</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li>    <router-link to="/">主页</router-link>    </li>
-                  <li>    <router-link to="/first">随想</router-link>    </li>
-                  <li>    <router-link to="/aboutme">关于我</router-link>    </li>
-                </ul>  
-              </nav>
-            </div>
-          </div>
-
-          <div class="inner cover">
-            <h1 class="cover-heading">近来随想</h1>
-            <p class="lead">
-              本站前端采用vue,vue-router,vuex ，后端采用nodejs,express,mongodb
-            </p>
-            <p class="lead">
-              说了这么多，其实我也不是很懂，就是调个接口的。希望大神们不要攻击我的网站，我只是想玩玩而已喽
-            </p>
-            <p class="lead">
-              <router-link to="/first" class="btn btn-lg btn-default">Look more</router-link>
-            </p>
-          </div>
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@wuhongyu</a>.</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
+    <div class="inner cover">
+      <h1 class="cover-heading">近来随想</h1>
+      <p class="lead">
+        本站前端采用vue,vue-router,vuex ，后端采用nodejs,express,mongodb
+      </p>
+      <p class="lead">
+        说了这么多，其实我也不是很懂，就是调个接口的。希望大神们不要攻击我的网站，我只是想玩玩而已喽
+      </p>
+      <p class="lead">
+        <router-link to="/first" class="btn btn-lg btn-default">Look more</router-link>
+      </p>
     </div>
-
- 
-  
 </template>
 
 <script>
