@@ -43428,8 +43428,8 @@
   align-items: center;
   height: 48px;
   line-height: 48px;
-  background-color: #FFFFFF;
-  color: #303133;
+  background-color: #333333;
+  color: #ffffff;
   cursor: pointer;
   border-bottom: 1px solid #EBEEF5;
   font-size: 13px;
@@ -43461,9 +43461,10 @@
   border-bottom: 1px solid #EBEEF5; }
 
 .el-collapse-item__content {
+  background-color: #222222;
+  color:  #ffffff;
   padding-bottom: 25px;
   font-size: 13px;
-  color: #303133;
   line-height: 1.769230769230769; }
 
 .el-collapse-item:last-child {
@@ -50270,6 +50271,7 @@
 /* Break-point
 --------------------------*/
 .el-header {
+  background-color: cadetblue;
   padding: 0 20px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;

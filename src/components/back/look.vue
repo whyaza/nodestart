@@ -23,6 +23,14 @@
             </template>
           </el-table-column>
       </el-table>
+      <el-pagination
+        background
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="prev, pager, next"
+        :total="totalCount">
+      </el-pagination>
   </div>
 </template>
 
@@ -31,14 +39,27 @@ export default {
   name: 'look',
   data() {
       return {
-        articles : []
+        articles : [],
+        pageSize: 5,  //每页的数据量
+        currentPage: 1, //初始页
+        totalCount : 0  //显示的总数目
       }
     },
   methods:{
-    fetch(){
-      //一般fetch方法就是获取数据的
-      this.$http.get('/articles').then(res => {
-        //看是否登录过期
+    //获得显示的总数目
+    getShowCount(){
+      this.$http.get('/articlesTotalCount').then(res => {
+        this.totalCount = res.data.totalCount;
+      })
+    },
+    //按页获得
+    handleCurrentChange(currentPage){
+      //currentPage 一开始默认是1
+      //this.currentPage = currentPage;
+      //console.log(this.currentPage)  //点击第几页
+
+      this.currentPage = currentPage;
+      this.$http.get(`/articlesf/${this.currentPage}/${this.pageSize}`).then(res => {
         if (res.status === 403){
           this.$message({
               showClose: true,
@@ -47,7 +68,7 @@ export default {
           this.$router.push({path: '/login'});
         }
 
-        this.articles = res.data
+        this.articles = res.data.articlesf;
       })
     },
 
@@ -66,7 +87,9 @@ export default {
                 showClose: true,
                 message: '删除成功！'
           });
-          this.fetch();
+          //更新一下数据
+          this.getShowCount();
+          this.handleCurrentChange();
         });  
         //按照id去删除，这个id是建立数据的时候，mongo数据库给分配的id。
 
@@ -77,10 +100,11 @@ export default {
         });          
       });
     
-    }
+    },
   },
   created() {
-    this.fetch();
+    this.getShowCount();
+    this.handleCurrentChange();
   },
 }
 </script>

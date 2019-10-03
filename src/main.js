@@ -11,8 +11,8 @@ import axios from 'axios'
 //引入vuex,进行状态管理
 import store from '../store/index'
 
-//引入自定义样式的elementui的css （black）
-import '../theme/index.css'
+//引入自定义样式的elementui的css （black）  最后 修这个
+//import '../theme/index.css'
 
 Vue.use(ElementUI);
 

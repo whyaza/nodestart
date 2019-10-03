@@ -9,6 +9,15 @@
       </div>
     </el-collapse>
 
+    <el-pagination
+        background
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="prev, pager, next"
+        :total="totalCount">
+      </el-pagination>
+    
     <button class="btn btn-default" @click="tologin()">后台管理</button>
   </div>
 
@@ -19,16 +28,37 @@ export default {
   name: 'first',
    data() {
       return {
-        articles: {}
+        articles : [],
+        pageSize: 5,  //每页的数据量
+        currentPage: 1, //初始页
+        totalCount : 0  //显示的总数目
       };
     },
     methods: {
-          fetch(){
-          //一般fetch方法就是获取数据的
-          this.$http.get('/fr/articles').then(res => {
-            this.articles = res.data
-          })
-        },
+      getShowCount(){
+        this.$http.get('/fr/articlesTotalCount').then(res => {
+          this.totalCount = res.data.totalCount;
+        })
+      },
+      //按页获得
+      handleCurrentChange(currentPage){
+        //currentPage 一开始默认是1
+        //this.currentPage = currentPage;
+        //console.log(this.currentPage)  //点击第几页
+
+        this.currentPage = currentPage;
+        this.$http.get(`/fr/articlesf/${this.currentPage}/${this.pageSize}`).then(res => {
+          if (res.status === 403){
+            this.$message({
+                showClose: true,
+                message: res.msg
+            });
+            this.$router.push({path: '/login'});
+          }
+
+          this.articles = res.data.articlesf;
+        })
+      },
       handleChange(val) {
         console.log(val);
       },
@@ -37,8 +67,8 @@ export default {
       }
     },
     created(){
-      console.log(this.$http.token);
-      this.fetch();
+      this.getShowCount();
+      this.handleCurrentChange();
     }
 }
 </script>

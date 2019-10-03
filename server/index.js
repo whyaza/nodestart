@@ -1,4 +1,4 @@
-const express = require('express') 
+const express = require('express')
 const JwtUtil = require('./jwt'); // 引入jwt token工具
 
 var fs = require("fs")  //读取本地文件
@@ -31,8 +31,19 @@ app.use(function (req, res, next){
     console.log(req.headers);
     console.log(req.headers.token);
     console.log(req.url);
-    //登录后，现在到了前台能传过来：第一次，验证好使，之后不好使了？？。。。
-    if (req.url != '/api/fr/articles' && req.url != '/api/imgCode' && req.url != '/api/lone') {
+    
+    //下面这个正则匹配的是前fr分页的请求
+    var reg = /\/api\/fr\/articlesf\/(undefined||[1-9]+)\/[1-9]/;
+    //console.log( req.url.match(reg) );
+    var pss = req.url.match(reg) ; //匹配的项
+
+    if (req.url == '/api/fr/articlesTotalCount' ||
+        pss != null ||
+        req.url == '/api/imgCode' ||
+        req.url == '/api/lone' ||
+        req.url == '/api/Van') {
+        next();
+    }else{
         let token = req.headers.token;
         let jwt = new JwtUtil(token);
         let result = jwt.verifyToken();
@@ -45,9 +56,8 @@ app.use(function (req, res, next){
         } else {
             next();
         }
-    } else {
-        next();
     }
+
 });
 
 const mongoose = require('mongoose')
@@ -63,6 +73,42 @@ const Article = mongoose.model('Article', new mongoose.Schema({
     title:  {type: String},
     body:   {type : String},
 }));
+
+//获取文件中获取 ： 首页
+app.get('/api/Van', async(req, res) => {
+    fs.readFile('./server/Van.json', function (err, data) {   //读取路径是：以启动server.js的位置为基准的
+        if (err) {
+            res.send(false);
+        }
+        var Van = data.toString();//将二进制的数据转换为字符串
+        Van = JSON.parse(Van);//将字符串转换为json对象
+        res.send(Van);  // title , body1, body2
+    });
+})
+
+//修改文件： 修改首页
+app.put('/api/Van/put', async(req, res)  => {
+    fs.readFile('./server/Van.json', function (err, data) {   //读取路径是：以启动server.js的位置为基准的
+        if (err) {
+            res.send(false);
+        }
+        var Van = data.toString();//将二进制的数据转换为字符串
+        Van = JSON.parse(Van);//将字符串转换为json对象
+        
+        Van.title = req.body.title;
+        Van.body1 = req.body.body1;
+        Van.body2 = req.body.body2;
+        var str = JSON.stringify(Van);
+        fs.writeFile('./server/Van.json',str,function(err){
+            if(err){
+                console.error(err);
+            }
+            console.log('--------------------修改成功');
+            res.send(str);
+        })
+    });
+
+})
 
 //新增文章  /api/资源/方法  Restful风格
 app.post('/api/articles', async(req, res) => {
@@ -90,11 +136,40 @@ app.post('/api/articles', async(req, res) => {
     res.send(article)
 })
 
-//获取文章列表的接口
-app.get('/api/articles', async(req, res) => {
-    const articles = await Article.find()
-    res.send(articles);
+
+//获取文章总数的接口
+app.get('/api/articlesTotalCount', async(req,res) => {
+    let Data = await Article.find({})
+    let count = Data.length
+    res.send({status: 200 ,totalCount:  count})
 })
+
+//分页获取文章列表的接口
+app.get('/api/articlesf/:pageIndex/:pageSize', async(req,res) => {
+    let getPage = parseInt(req.params.pageIndex) - 1
+    let getLimit = parseInt(req.params.pageSize)
+    let articlesf = await Article.find({},{time:1,title:1,body:1}).sort({_id:-1}).limit(getLimit).skip(getPage* getLimit).exec()
+    res.send({status: 200, articlesf:articlesf});
+
+})
+
+//获取文章总数的接口
+app.get('/api/fr/articlesTotalCount', async(req,res) => {
+    let Data = await Article.find({})
+    let count = Data.length
+    res.send({status: 200 ,totalCount:  count})
+})
+
+//分页获取文章列表的接口
+app.get('/api/fr/articlesf/:pageIndex/:pageSize', async(req,res) => {
+    let getPage = parseInt(req.params.pageIndex) - 1
+    let getLimit = parseInt(req.params.pageSize)
+
+    let articlesf = await Article.find({},{time:1,title:1,body:1}).sort({_id:-1}).limit(getLimit).skip(getPage* getLimit).exec()
+    res.send({status: 200, articlesf:articlesf});
+
+})
+
 
 //前端获取文件列表接口,无需验证,在拦截器上去除
 app.get('/api/fr/articles', async(req, res) => {

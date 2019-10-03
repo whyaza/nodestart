@@ -1,11 +1,11 @@
 <template>
     <div class="inner cover">
-      <h1 class="cover-heading">近来随想</h1>
+      <h1 class="cover-heading">{{ title }}</h1>
       <p class="lead">
-        本站前端采用vue,vue-router,vuex ，后端采用nodejs,express,mongodb
+        {{ body1 }}
       </p>
       <p class="lead">
-        说了这么多，其实我也不是很懂，就是调个接口的。希望大神们不要攻击我的网站，我只是想玩玩而已喽
+        {{ body2 }}}
       </p>
       <p class="lead">
         <router-link to="/first" class="btn btn-lg btn-default">Look more</router-link>
@@ -18,26 +18,22 @@ export default {
   name: 'first',
    data() {
       return {
-        articles: {}
+        title: '',
+        body1: '',
+        body2: ''
       };
     },
     methods: {
-          fetch(){
-          //一般fetch方法就是获取数据的
-          this.$http.get('/fr/articles').then(res => {
-            this.articles = res.data
+        getVan(){
+          this.$http.get('/Van').then(res => {
+            this.title = res.data.title
+            this.body1 = res.data.body1
+            this.body2 = res.data.body2
           })
-        },
-      handleChange(val) {
-        console.log(val);
-      },
-      tologin(){
-        this.$router.push({path:"/login"});
-      },
+        }
     },
     created(){
-      console.log(this.$http.token);
-      this.fetch();
+      this.getVan();
     }
 }
 </script>
