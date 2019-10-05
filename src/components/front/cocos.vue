@@ -13,6 +13,7 @@
                   <li>    <router-link to="/">主页</router-link>    </li>
                   <li>    <router-link to="/first">随想</router-link>    </li>
                   <li>    <router-link to="/aboutme">关于我</router-link>    </li>
+                  <li>    <router-link to="/discuss">给我留言</router-link>    </li>
                 </ul>  
               </nav>
             </div>

@@ -5,7 +5,7 @@
         {{ body1 }}
       </p>
       <p class="lead">
-        {{ body2 }}}
+        {{ body2 }}
       </p>
       <p class="lead">
         <router-link to="/first" class="btn btn-lg btn-default">Look more</router-link>

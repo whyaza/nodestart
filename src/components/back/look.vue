@@ -2,7 +2,27 @@
   <div class="look">
       <h1 class="pull-left">随想管理   主页面</h1>
       <h1 class="pull-right"><router-link to="/insert" class="btn default-button">新增</router-link></h1>
+
+      <el-form :inline="true" :model="form" class="demo-form-inline pull-left">
+        <el-form-item label="时间">
+          <el-input v-model="form.time" placeholder="时间"></el-input>
+        </el-form-item>
+        
+        <el-form-item label="主题">
+          <el-input v-model="form.title" placeholder="主题"></el-input>
+        </el-form-item>
+
+        <el-form-item label="内容">
+          <el-input v-model="form.body" placeholder="内容"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="handleCurrentChange(1)">查询</el-button>
+        </el-form-item>
+      </el-form>
+
       <el-table :data="articles">
+
         <el-table-column prop="time" label="日期" width="140">
         </el-table-column>
         <el-table-column prop="title" label="主题" width="120">
@@ -29,7 +49,9 @@
         :current-page="currentPage"
         :page-size="pageSize"
         layout="prev, pager, next"
-        :total="totalCount">
+        :total="totalCount"
+        :pager-count = "pagerCount"
+        >
       </el-pagination>
   </div>
 </template>
@@ -42,7 +64,14 @@ export default {
         articles : [],
         pageSize: 5,  //每页的数据量
         currentPage: 1, //初始页
-        totalCount : 0  //显示的总数目
+        totalCount : 0,  //显示的总数目
+        pagerCount : 5,  //几页以后开始显示...必须是大于5且小于21的奇数
+
+        form: {
+          time: '',
+          title: '',
+          body: '',
+        }
       }
     },
   methods:{
@@ -54,12 +83,9 @@ export default {
     },
     //按页获得
     handleCurrentChange(currentPage){
-      //currentPage 一开始默认是1
-      //this.currentPage = currentPage;
-      //console.log(this.currentPage)  //点击第几页
-
-      this.currentPage = currentPage;
-      this.$http.get(`/articlesf/${this.currentPage}/${this.pageSize}`).then(res => {
+      this.currentPage = currentPage
+      
+      this.$http.post(`/articlesf/${this.currentPage}/${this.pageSize}`,this.form).then(res => {
         if (res.status === 403){
           this.$message({
               showClose: true,
@@ -68,7 +94,9 @@ export default {
           this.$router.push({path: '/login'});
         }
 
+        console.log(res);
         this.articles = res.data.articlesf;
+        this.totalCount = res.data.total;
       })
     },
 
@@ -101,6 +129,27 @@ export default {
       });
     
     },
+    /*
+    search(){
+      //必须在第一页的时候才能查询！
+
+      this.$http.post(`/articlesfs/${this.currentPage}/${this.pageSize}`,this.form).then(res => {
+        //才反应过来，get 没有后面的res.body
+        if (res.status === 403){
+          this.$message({
+              showClose: true,
+              message: res.msg
+          });
+          this.$router.push({path: '/login'});
+        }else{
+          //this.currentPage = 1
+
+          console.log(res);
+          this.totalCount = res.data.total;
+          this.articles = res.data.articles;
+        }
+      })
+    }*/
   },
   created() {
     this.getShowCount();

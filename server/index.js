@@ -74,6 +74,17 @@ const Article = mongoose.model('Article', new mongoose.Schema({
     body:   {type : String},
 }));
 
+const Disscuss = mongoose.model('Disscuss', new mongoose.Schema({
+    Name: {type: String},
+    content:  {type: String},
+    //parerntId:   {type : Integer},
+}));
+
+//增加一条评论
+//app.get('/api/discuss', async(req, res) => {
+//    console.log();
+//})
+
 //获取文件中获取 ： 首页
 app.get('/api/Van', async(req, res) => {
     fs.readFile('./server/Van.json', function (err, data) {   //读取路径是：以启动server.js的位置为基准的
@@ -145,13 +156,41 @@ app.get('/api/articlesTotalCount', async(req,res) => {
 })
 
 //分页获取文章列表的接口
-app.get('/api/articlesf/:pageIndex/:pageSize', async(req,res) => {
+app.post('/api/articlesf/:pageIndex/:pageSize', async(req,res) => {
     let getPage = parseInt(req.params.pageIndex) - 1
     let getLimit = parseInt(req.params.pageSize)
-    let articlesf = await Article.find({},{time:1,title:1,body:1}).sort({_id:-1}).limit(getLimit).skip(getPage* getLimit).exec()
-    res.send({status: 200, articlesf:articlesf});
 
+    let articlesf = await Article.find(
+            JSON.stringify(req.body)  == "{}" ? {} : {
+                //文章搜索功能 
+                $and:[   //多条件，数组
+                    //$regex: "" 为空的时候，能匹配所有的
+                    {"time": {$regex: req.body.time}},  //正则的模糊查询
+                    {"title": {$regex: req.body.title}},
+                    {"body": {$regex: req.body.body}},
+                ]
+            }   
+        ).limit(getLimit).skip(getPage* getLimit).sort({_id:-1}).exec()
+
+    let articlesfff = await Article.find(
+        JSON.stringify(req.body)  == "{}" ? {} : {
+            //文章搜索功能 
+            $and:[   //多条件，数组
+                //$regex: "" 为空的时候，能匹配所有的
+                {"time": {$regex: req.body.time}},  //正则的模糊查询
+                {"title": {$regex: req.body.title}},
+                {"body": {$regex: req.body.body}},
+            ]
+        }   
+    )
+    
+    let tlen = articlesfff.length
+
+    res.send({status: 200, articlesf:articlesf, total: tlen});
 })
+
+//文章搜索功能   
+
 
 //获取文章总数的接口
 app.get('/api/fr/articlesTotalCount', async(req,res) => {

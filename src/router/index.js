@@ -9,6 +9,7 @@ import home from '@/components/front/home'
 import aboutme from '@/components/front/aboutme'
 import editin from '@/components/back/editin'
 import others from '@/components/back/others'
+import discuss from '@/components/front/discuss'
 
 //进行路由嵌套，嵌套跳转，实现内部跳转
 import consolein from '@/components/back/consolein'
@@ -40,6 +41,11 @@ const router = new Router({
           name: 'aboutme',
           component: aboutme
         },
+        {
+          path: 'discuss',
+          name : 'discuss',
+          component: discuss,
+        }
       ]
     },
 
