@@ -26,6 +26,7 @@
           <div class="mastfoot">
             <div class="inner">
               <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@wuhongyu</a>.</p>
+              <div @click="tologin">md.Inc</div>
             </div>
           </div>
           
@@ -35,6 +36,17 @@
 </template>
 
 <script>
+export default {
+  data() {
+      return {}
+    },
+  methods:{
+    tologin(){
+      console.log("dao1");
+      this.$router.push({path:"/login"})
+    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

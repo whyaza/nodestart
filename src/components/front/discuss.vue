@@ -150,7 +150,7 @@
             type: 'warning'
           });
         }else{
-          console.log('submit!'); 
+          //console.log('submit!'); 
           
           if (this.form.content.length > 20 || this.form.content.length == 0
             || this.form.Name.length > 6 || this.form.Name.length ==0){
@@ -165,7 +165,7 @@
               alert("一个人最多只能提交三次");
             }else{
               this.$http.post('/discussz',this.form).then(res => {
-                console.log(res);
+                //console.log(res);
                 //更新一下视图
                 this.getDiscussCount()
                 this.handleCurrentChange()
@@ -192,11 +192,11 @@
               //进行深度复制
               newData.children = JSON.parse(JSON.stringify( rdata[i].children ));
               
-              console.log(newData.children)
+              //console.log(newData.children)
 
               this.data.push(newData)
           }
-          console.log(this.data)
+          //console.log(this.data)
 
         })
       },
@@ -209,7 +209,7 @@
         this.fname = data.Name
       },
       handleNodeClick(data) {
-        console.log(data);
+        //console.log(data);
       },
       getDiscussCount(){
         this.$http.post('/discussCount').then(res => {
