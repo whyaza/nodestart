@@ -133,7 +133,7 @@ app.post('/api/discussc/:pageIndex/:pageSize', async(req, res) => {
         data.Name = discuss[i].Name;
         data.content = discuss[i].content;
         data._id = discuss[i]._id
-        data.label = discuss[i].Name + ":" + discuss[i].content;
+        data.label = "游客[" + discuss[i].Name + "]:    " + discuss[i].content;
         data.children = []
 
         rdatas.push(data)
@@ -158,7 +158,7 @@ app.post('/api/discussc/:pageIndex/:pageSize', async(req, res) => {
             tempdate.Name = childDiscuss[i].Name;
             tempdate.content = childDiscuss[i].content;
             tempdate._id = childDiscuss[i]._id
-            tempdate.label = childDiscuss[i].Name + ":" + childDiscuss[i].content;
+            tempdate.label = "游客[" + childDiscuss[i].Name + "]:    " + childDiscuss[i].content;
             tempdate.children = []
 
             console.log(tempdate);
@@ -221,7 +221,7 @@ app.post('/api/articles', async(req, res) => {
     var day = myDate.getDate();
     var hour = myDate.getHours();       //获取当前小时数(0-23)
     var minute = myDate.getMinutes();     //获取当前分钟数(0-59)
-    var newDay = year + "-" + month + "-" + day + ":" + hour +"-" + minute; 
+    var newDay = year + "-" + month + "-" + day + "日:" + hour +":" + minute + "分"; 
     
     var data = {}
     data.title = title;

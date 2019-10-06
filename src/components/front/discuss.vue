@@ -1,7 +1,42 @@
 <template>
     <div class="discuss">
+      <!--default-expand-all 是默认全部展开-->
+      <div class="block inner cover">
+        <el-tree
+          :data="data"
+          node-key="id"
+          icon-class="el-icon-user-solid"
+          >
+          <span class="custom-tree-node" slot-scope="{ node, data }">
+            <span>{{ node.label }}</span>
+            <span>
+              <el-button
+                type="text"
+                size="mini"
+                @click="() => append(data)">
+                回复
+              </el-button>
+            </span>
+          </span>
+        </el-tree>
+      </div>
+
+      <el-pagination
+        background
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="prev, pager, next"
+        :total="totalCount"
+        :pager-count = "pagerCount"
+        >
+      </el-pagination>
+
+      <br/>
+
       <el-tag type="info pull-left" v-if="ishf">现在，您可在此处回复 {{fname}} </el-tag>
-      <el-tag type="info pull-right" v-if="ishf" @click="tome">或者，点击此处 ->给我留言</el-tag>
+      <!--<el-tag type="info pull-right" v-if="ishf" @click="tome">或者，点击此处 ->给我留言</el-tag>-->
+      <br/>
 
       <el-form ref="form" :model="form" :inline="true">
           <el-form-item>
@@ -17,37 +52,6 @@
               <el-button type="primary" @click="onSubmit">提交</el-button>
           </el-form-item>
       </el-form>
-      <!--default-expand-all 是默认全部展开-->
-    <div class="block">
-       <el-tree
-        :data="data"
-        node-key="id"
-        icon-class="el-icon-user"
-        :expand-on-click-node="false">
-        <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span>{{ node.label }}</span>
-          <span>
-            <el-button
-              type="text"
-              size="mini"
-              @click="() => append(data)">
-              回复
-            </el-button>
-          </span>
-        </span>
-      </el-tree>
-    </div>
-
-      <el-pagination
-        background
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-size="pageSize"
-        layout="prev, pager, next"
-        :total="totalCount"
-        :pager-count = "pagerCount"
-        >
-      </el-pagination>
 
     </div>
 </template>

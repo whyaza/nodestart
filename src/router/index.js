@@ -19,6 +19,7 @@ import cocos from '@/components/front/cocos'
 Vue.use(Router)
 
 const router = new Router({
+  mode: "history",
   routes: [
     //路径是/的时候，直接重定向到/front/cocos
     {

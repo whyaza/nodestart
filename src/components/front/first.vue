@@ -3,8 +3,8 @@
   <div class="inner cover">
     <el-collapse @change="handleChange" >
       <div v-for="article in articles" :key="article.time">
-        <el-collapse-item :title="article.time +'        ' + article.title">
-          <div>{{  article.body }}</div>
+        <el-collapse-item :title="article.title+ '@' + article.time">
+          <div class="pull-left">{{  article.body }}</div>
         </el-collapse-item>
       </div>
     </el-collapse>
@@ -20,7 +20,6 @@
         >
       </el-pagination>
     
-    <button class="btn btn-default" @click="tologin()">后台管理</button>
   </div>
 
 </template>
@@ -65,9 +64,6 @@ export default {
       handleChange(val) {
         console.log(val);
       },
-      tologin(){
-        this.$router.push({path:"/login"});
-      }
     },
     created(){
       this.getShowCount();

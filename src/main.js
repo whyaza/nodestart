@@ -12,7 +12,8 @@ import axios from 'axios'
 import store from '../store/index'
 
 //引入自定义样式的elementui的css （black）  最后 修这个
-//import '../theme/index.css'
+
+import '../theme/index.css'
 
 Vue.use(ElementUI);
 
