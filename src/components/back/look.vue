@@ -129,27 +129,7 @@ export default {
       });
     
     },
-    /*
-    search(){
-      //必须在第一页的时候才能查询！
 
-      this.$http.post(`/articlesfs/${this.currentPage}/${this.pageSize}`,this.form).then(res => {
-        //才反应过来，get 没有后面的res.body
-        if (res.status === 403){
-          this.$message({
-              showClose: true,
-              message: res.msg
-          });
-          this.$router.push({path: '/login'});
-        }else{
-          //this.currentPage = 1
-
-          console.log(res);
-          this.totalCount = res.data.total;
-          this.articles = res.data.articles;
-        }
-      })
-    }*/
   },
   created() {
     this.getShowCount();

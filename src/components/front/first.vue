@@ -15,7 +15,9 @@
         :current-page="currentPage"
         :page-size="pageSize"
         layout="prev, pager, next"
-        :total="totalCount">
+        :total="totalCount"
+        :pager-count = "pagerCount"
+        >
       </el-pagination>
     
     <button class="btn btn-default" @click="tologin()">后台管理</button>
@@ -31,7 +33,8 @@ export default {
         articles : [],
         pageSize: 5,  //每页的数据量
         currentPage: 1, //初始页
-        totalCount : 0  //显示的总数目
+        totalCount : 0,  //显示的总数目
+        pagerCount : 5,  //几页以后开始显示...必须是大于5且小于21的奇数
       };
     },
     methods: {

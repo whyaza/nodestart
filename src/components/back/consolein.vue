@@ -7,7 +7,8 @@
                     <el-menu-item-group>
                         <el-menu-item index="1-1"><router-link to="/back">首页管理</router-link></el-menu-item>
                         <el-menu-item index="1-2"><router-link to="/look">随笔管理</router-link></el-menu-item>
-                        <el-menu-item index="1-3"><router-link to="/others">其他管理</router-link></el-menu-item>
+                        <el-menu-item index="1-3"><router-link to="/discussManage">留言管理</router-link></el-menu-item>
+                        <el-menu-item index="1-4"><router-link to="/others">其他管理</router-link></el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
             </el-menu>

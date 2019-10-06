@@ -37,11 +37,19 @@ app.use(function (req, res, next){
     //console.log( req.url.match(reg) );
     var pss = req.url.match(reg) ; //匹配的项
 
+    var reg1 = /\/api\/discussc\/(undefined||[1-9]+)\/[1-9]/;
+    //console.log( req.url.match(reg) );
+    var pss1 = req.url.match(reg1) ; //匹配的项
+
     if (req.url == '/api/fr/articlesTotalCount' ||
         pss != null ||
         req.url == '/api/imgCode' ||
         req.url == '/api/lone' ||
-        req.url == '/api/Van') {
+        req.url == '/api/Van' ||
+        pss1 != null  ||  //评论的分页查看不用阻拦
+        req.url == '/api/discussCount' ||
+        req.url == '/api/discussz'  //评论的增加不用阻拦
+        ) {
         next();
     }else{
         let token = req.headers.token;
@@ -74,16 +82,97 @@ const Article = mongoose.model('Article', new mongoose.Schema({
     body:   {type : String},
 }));
 
-const Disscuss = mongoose.model('Disscuss', new mongoose.Schema({
+const Discuss = mongoose.model('Discuss', new mongoose.Schema({
     Name: {type: String},
     content:  {type: String},
-    //parerntId:   {type : Integer},
+    parentId:   {type : String},    //指向mongoose自动生成的_id
 }));
 
+//删除一条评论
+app.delete('/api/discuss/:id', async(req, res)  => {
+    await Discuss.findOneAndRemove({_id:req.params.id});  //上面的那个id相对应
+    res.send({
+        status : true
+    });
+})
+
 //增加一条评论
-//app.get('/api/discuss', async(req, res) => {
-//    console.log();
-//})
+app.post('/api/discussz', async(req, res) => {
+    const discuss = await Discuss.create(req.body);     
+    res.send(discuss)
+})
+
+//获取评论总数
+app.post('/api/discussCount', async(req, res) => {
+    let Data = await Discuss.find({parentId : "0"})
+    let count = Data.length
+    res.send({status: 200 ,totalCount:  count})
+})
+
+//分页查看评论  ：  每5个一级评论为一页
+app.post('/api/discussc/:pageIndex/:pageSize', async(req, res) => {
+    let getPage = parseInt(req.params.pageIndex) - 1
+    let getLimit = parseInt(req.params.pageSize)
+
+    let discuss = await Discuss.find({
+        parentId: "0"        //只查看父级评论
+    }).limit(getLimit).skip(getPage* getLimit).sort({_id:-1}).exec()
+    //然后查看这五条父级评论的子评论
+
+    //console.log(discuss)
+
+    let rdatas = []     //最终返回的数据
+    //格式为：
+    //[ {Name: xx, content: xx}, children: [递归地 ]    ]
+
+    let data = {}
+    var z = []
+    for (var i = 0; i < discuss.length; i++){
+        
+        data = {}
+        data.Name = discuss[i].Name;
+        data.content = discuss[i].content;
+        data._id = discuss[i]._id
+        data.label = discuss[i].Name + ":" + discuss[i].content;
+        data.children = []
+
+        rdatas.push(data)
+        z.push(data)
+    }
+
+    //开始广度优先搜索
+    while (z.length != 0){
+        var ediscuss = z.pop()
+        let childDiscuss = await Discuss.find({
+            parentId : ediscuss._id        //只查看父级评论
+        }).exec()
+        
+        let tempdate = {}
+        
+        console.log("其id是:");
+        console.log(ediscuss._id);
+
+        for (var i = 0; i < childDiscuss.length ; i++){
+
+            tempdate = {}
+            tempdate.Name = childDiscuss[i].Name;
+            tempdate.content = childDiscuss[i].content;
+            tempdate._id = childDiscuss[i]._id
+            tempdate.label = childDiscuss[i].Name + ":" + childDiscuss[i].content;
+            tempdate.children = []
+
+            console.log(tempdate);
+            
+            ediscuss.children.push(tempdate)
+            z.push(tempdate)
+        }
+    }
+    
+    console.log(rdatas[0].children)     //递归第二次，不对。
+    
+
+    res.send({status: 200, discuss:rdatas});
+})
 
 //获取文件中获取 ： 首页
 app.get('/api/Van', async(req, res) => {
@@ -188,9 +277,6 @@ app.post('/api/articlesf/:pageIndex/:pageSize', async(req,res) => {
 
     res.send({status: 200, articlesf:articlesf, total: tlen});
 })
-
-//文章搜索功能   
-
 
 //获取文章总数的接口
 app.get('/api/fr/articlesTotalCount', async(req,res) => {

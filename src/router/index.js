@@ -10,6 +10,7 @@ import aboutme from '@/components/front/aboutme'
 import editin from '@/components/back/editin'
 import others from '@/components/back/others'
 import discuss from '@/components/front/discuss'
+import discussManage from '@/components/back/discussManage'
 
 //进行路由嵌套，嵌套跳转，实现内部跳转
 import consolein from '@/components/back/consolein'
@@ -88,6 +89,13 @@ const router = new Router({
           name: 'edit',
           component: edit
         },
+
+        //留言管理
+        {
+          path: '/discussManage',
+          name:  'discussManage',
+          component: discussManage
+        }
       ]
     }
 
