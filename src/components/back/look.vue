@@ -1,9 +1,12 @@
 <template>
   <div class="look">
-      <h1 class="pull-left">随想管理   主页面</h1>
-      <h1 class="pull-right"><router-link to="/insert" class="btn default-button">新增</router-link></h1>
+      <h1>随想管理</h1>
+      <span>
+          <router-link to="/insert" class="btn default-button">新增</router-link>
+      </span>
+      <span @click="findshow = !findshow" style="cursor: all-scroll;">查询启用/禁用</span>
 
-      <el-form :inline="true" :model="form" class="demo-form-inline pull-left">
+      <el-form :inline="true" :model="form" class="demo-form-inline"  v-show="findshow">
         <el-form-item label="时间">
           <el-input v-model="form.time" placeholder="时间"></el-input>
         </el-form-item>
@@ -16,6 +19,7 @@
           <el-input v-model="form.body" placeholder="内容"></el-input>
         </el-form-item>
 
+        <br/>
         <el-form-item>
           <el-button type="primary" @click="handleCurrentChange(1)">查询</el-button>
         </el-form-item>
@@ -23,15 +27,15 @@
 
       <el-table :data="articles">
 
-        <el-table-column prop="time" label="日期" width="140">
+        <el-table-column prop="time" label="日期" :xs="6">
         </el-table-column>
-        <el-table-column prop="title" label="主题" width="120">
+        <el-table-column prop="title" label="主题" :xs="6">
         </el-table-column>
-        <el-table-column prop="body" label="内容">
+        <el-table-column prop="body" label="内容" :xs="6">
         </el-table-column>
 
           <el-table-column
-            align="right">
+            align="right" :xs="6">
             <template slot-scope="scope">
               <el-button
                 size="mini"
@@ -71,7 +75,9 @@ export default {
           time: '',
           title: '',
           body: '',
-        }
+        },
+        
+        findshow : false
       }
     },
   methods:{
@@ -134,6 +140,13 @@ export default {
   created() {
     this.getShowCount();
     this.handleCurrentChange();
+
+    //判断是手机还是pc，手机menushow - >false， pc menushow->true
+        if( screen.width < 640){
+            this.findshow = false;
+        }else{
+            this.findshow = true;
+        }
   },
 }
 </script>

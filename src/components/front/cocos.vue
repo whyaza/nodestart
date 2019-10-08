@@ -25,7 +25,7 @@
 
           <div class="mastfoot">
             <div class="inner">
-              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@wuhongyu</a>.</p>
+              <p>The domain name is<a href="http://106.13.73.45/16451">being applied</a>, by <a href="https://twitter.com/mdo">@wuhongyu</a>.</p>
               <div @click="tologin">md.Inc</div>
             </div>
           </div>

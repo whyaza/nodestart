@@ -57,6 +57,11 @@
 </template>
 
 <script>
+//调用定时的localstorageutils方法
+import {get} from '../utils/localstorageUtils.js';
+import {set} from '../utils/localstorageUtils.js';
+import {remove} from '../utils/localstorageUtils.js';
+
   export default {
     data() {
       const data = [{
@@ -100,9 +105,7 @@
         fname: "", //要回复的人的姓名
         showName : false,
         ishf :false,
-        
-        submited : "enabled",  //一个人只能提交三次
-        
+      
         form: {
             Name: '',
             content: '',
@@ -159,18 +162,43 @@
               type: 'warning'
             });
           }else{            
+            //规则为60分钟内，只能提交五次
             //判断是否重复提交  或者  多次提交
-            this.submitedCount++;
-            if (this.submitedCount > 3){
-              alert("一个人最多只能提交三次");
-            }else{
+            //set(1,2,3);     //key, value, time
+            //get(key)
+            let yt = get("youTime")
+            if (yt == null){
+              set("youTime", 0, 60 )
               this.$http.post('/discussz',this.form).then(res => {
                 //console.log(res);
                 //更新一下视图
                 this.getDiscussCount()
                 this.handleCurrentChange()
               })
+            }else{
+              if ( yt < 5){
+                set("youTime", yt + 1 , 60 )
+                this.$http.post('/discussz',this.form).then(res => {
+                  //console.log(res);
+                  //更新一下视图
+                  this.getDiscussCount()
+                  this.handleCurrentChange()
+                })
+              }else{
+                set("youTime", 100 , 60 ) 
+                 this.$message({
+                  message: '您提交过于频繁，请1小时后再试',
+                  type: 'warning'
+                });
+              }
             }
+            /*
+            this.$http.post('/discussz',this.form).then(res => {
+              //console.log(res);
+              //更新一下视图
+              this.getDiscussCount()
+              this.handleCurrentChange()
+            })*/
 
           }
 
