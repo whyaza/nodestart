@@ -42,7 +42,7 @@
     },
     methods:{
       logout(){
-        console.log("用户要退出");
+        //console.log("用户要退出");
         this.$store.dispatch("del_token");
         this.$http.defaults.headers.common['token'] = '';
         this.$router.push({path:'/'});

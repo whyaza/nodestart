@@ -6,7 +6,7 @@
             <el-input v-model="article.title"></el-input>
         </el-form-item>
         <el-form-item label="内容">
-            <el-input type="textarea" v-model="article.body"></el-input>
+            <el-input type="textarea" v-model="article.body" :rows="12"></el-input>
         </el-form-item>
         <el-button type="primary" @click="onSubmit">立即新增</el-button>
     </el-form>

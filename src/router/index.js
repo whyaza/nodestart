@@ -11,6 +11,16 @@ import editin from '@/components/back/editin'
 import others from '@/components/back/others'
 import discuss from '@/components/front/discuss'
 import discussManage from '@/components/back/discussManage'
+import articledetails from '@/components/front/articledetails'
+import memory from '@/components/front/memory'
+
+//各种memory的文件导入
+import chuzhongsuiyue from '@/components/front/memorys/chuzhongsuiyue'
+import daxuelangdang from '@/components/front/memorys/daxuelangdang'
+import ershishiguang from '@/components/front/memorys/ershishiguang'
+import gaozhongsannian from '@/components/front/memorys/gaozhongsannian'
+import yanjiushenghuo from '@/components/front/memorys/yanjiushenghuo'
+import zhenxidangxia from '@/components/front/memorys/zhenxidangxia'
 
 //进行路由嵌套，嵌套跳转，实现内部跳转
 import consolein from '@/components/back/consolein'
@@ -47,6 +57,48 @@ const router = new Router({
           path: 'discuss',
           name : 'discuss',
           component: discuss,
+        },
+        {
+          path: 'articledetails',
+          name : 'articledetails',
+          component: articledetails,
+        },
+        {
+          path: 'memory',
+          name : 'memory',
+          component: memory,
+          children:[
+            {
+              path: 'ershishiguang',
+              name : 'ershishiguang',
+              component: ershishiguang,
+            },
+            {
+                path: 'chuzhongsuiyue',
+                name : 'chuzhongsuiyue',
+                component: chuzhongsuiyue,
+              },
+              {
+                path: 'daxuelangdang',
+                name : 'daxuelangdang',
+                component: daxuelangdang,
+              },
+              {
+                path: 'gaozhongsannian',
+                name : 'gaozhongsannian',
+                component: gaozhongsannian,
+              },
+              {
+                path: 'yanjiushenghuo',
+                name : 'yanjiushenghuo',
+                component: yanjiushenghuo,
+              },
+              {
+                path: 'zhenxidangxia',
+                name : 'zhenxidangxia',
+                component: zhenxidangxia,
+              },
+          ]
         }
       ]
     },

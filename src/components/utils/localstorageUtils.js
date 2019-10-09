@@ -27,13 +27,14 @@ export function get(key) {
 
 	if ( now >= expired ) {
 		//现在的时间点  大于终止的时间点了
-		this.remove(key);
+		source.removeItem(`${key}__expires__`);
 		return "ok";
 	}
 	const value = source[key] ? JSON.parse(source[key]) : source[key];
 	return value;
 }
 
+//下面这个没用- - 
 export function remove(key) {
 	const data = this.source,
 		value = data[key];

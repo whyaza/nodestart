@@ -17,12 +17,13 @@
   transition: border-bottom-color .3s;
   outline: none; }
 
-.el-collapse-item__content {
-  background-color: #444444;
-  color:  #ffffff;
-  padding-bottom: 25px;
-  font-size: 13px;
-  line-height: 1.769230769230769; }
+  .el-collapse-item__content {
+    padding-bottom: 25px;
+    font-size: 13px;
+    line-height: 1.769230769230769;
+    height: 50px;
+    overflow: hidden;
+}
 
   .el-tag {
     background-color: #ecf5ff;

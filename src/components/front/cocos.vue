@@ -7,7 +7,10 @@
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">WHY-Home</h3>
+              <h3 class="masthead-brand">
+                WHY-Home
+                <router-link to="/memory" style="color:#409EFF;">回忆</router-link> 
+              </h3>
               <nav>
                 <ul class="nav masthead-nav">
                   <li>    <router-link to="/">主页</router-link>    </li>

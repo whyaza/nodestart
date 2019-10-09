@@ -1,11 +1,11 @@
 <template>
     <div class="discuss">
-      <!--default-expand-all 是默认全部展开-->
       <div class="block inner cover">
         <el-tree
           :data="data"
           node-key="id"
           icon-class="el-icon-user-solid"
+          default-expand-all
           >
           <span class="custom-tree-node" slot-scope="{ node, data }">
             <span>{{ node.label }}</span>
@@ -166,8 +166,10 @@ import {remove} from '../utils/localstorageUtils.js';
             //判断是否重复提交  或者  多次提交
             //set(1,2,3);     //key, value, time
             //get(key)
+
+            //出现问题：  当用户第二次来的时候，原来的youTime值还在
             let yt = get("youTime")
-            if (yt == null){
+            if (yt == null || yt == "ok"){
               set("youTime", 0, 60 )
               this.$http.post('/discussz',this.form).then(res => {
                 //console.log(res);

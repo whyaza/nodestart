@@ -149,8 +149,8 @@ app.post('/api/discussc/:pageIndex/:pageSize', async(req, res) => {
         
         let tempdate = {}
         
-        console.log("其id是:");
-        console.log(ediscuss._id);
+        //console.log("其id是:");
+        //console.log(ediscuss._id);
 
         for (var i = 0; i < childDiscuss.length ; i++){
 
@@ -161,14 +161,14 @@ app.post('/api/discussc/:pageIndex/:pageSize', async(req, res) => {
             tempdate.label = "游客[" + childDiscuss[i].Name + "]:    " + childDiscuss[i].content;
             tempdate.children = []
 
-            console.log(tempdate);
+            //console.log(tempdate);
             
             ediscuss.children.push(tempdate)
             z.push(tempdate)
         }
     }
     
-    console.log(rdatas[0].children)     //递归第二次，不对。
+    //console.log(rdatas[0].children)     //递归第二次，不对。
     
 
     res.send({status: 200, discuss:rdatas});

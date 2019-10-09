@@ -116,11 +116,11 @@ export default {
               //进行深度复制
               newData.children = JSON.parse(JSON.stringify( rdata[i].children ));
               
-              console.log(newData.children)
+              //console.log(newData.children)
 
               this.data.push(newData)
           }
-          console.log(this.data)
+          //console.log(this.data)
 
         })
       },
@@ -138,7 +138,7 @@ export default {
         const index = children.findIndex(d => d.id === data.id);
         children.splice(index, 1);
         //在删除一下数据库的
-        console.log(data._id);
+        //console.log(data._id);
 
         
         this.$http.delete(`/discuss/${data._id}`).then(res =>{

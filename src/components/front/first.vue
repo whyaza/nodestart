@@ -4,7 +4,10 @@
     <el-collapse @change="handleChange" >
       <div v-for="article in articles" :key="article.time">
         <el-collapse-item :title="article.title+ '@' + article.time">
-          <div class="pull-left">{{  article.body }}</div>
+          <router-link :to="{name: 'articledetails', params:{ title:article.title,  time: article.time ,article: article.body }}" class="discussbody"> 
+             <div class="discussa pull-right">更多</div>
+              <span class="wrapper" v-html="article.body"></span>
+          </router-link>
         </el-collapse-item>
       </div>
     </el-collapse>
@@ -59,15 +62,17 @@ export default {
           }
 
           this.articles = res.data.articlesf;
+          //console.log(this.articles[2].body);
         })
       },
       handleChange(val) {
-        console.log(val);
+        //console.log(val);
       },
     },
     created(){
       this.getShowCount();
       this.handleCurrentChange();
+      
     }
 }
 </script>
@@ -81,5 +86,16 @@ export default {
 1.加上 /deep/
 2.去掉 scoped  尽量不要这样，
 -->
+<!--保留空格和换行,文本过长，换行-->
 <style scoped>
+.wrapper{
+  white-space: pre-wrap;
+  word-break: break-all;
+} 
+.discussbody{
+  color:black;
+}
+.discussa{
+  color:#409EFF;
+}
 </style>
