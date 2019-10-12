@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     //开启代理服务器，解决跨域问题
     proxyTable: {
-      
+ 
       '/api': { //浏览器console是看不出来的
         target: 'http://localhost:3000/api',//要访问的后端接口
         changeOrigin: true,
@@ -21,7 +21,8 @@ module.exports = {
           //这里的配置是正则表达式，以/api开头的将会被用用‘/api'替换掉，假如后台文档的接口是 /api/list/xxx      
           //前端api接口写：axios.get('/api/list/xxx') ， 被处理之后实际访问的是：http://news.baidu.com/api/list/xxx 
         }
-      }
+      },
+
     },
 
     // Various Dev Server settings

@@ -48,7 +48,8 @@ app.use(function (req, res, next){
         req.url == '/api/Van' ||
         pss1 != null  ||  //评论的分页查看不用阻拦
         req.url == '/api/discussCount' ||
-        req.url == '/api/discussz'  //评论的增加不用阻拦
+        req.url == '/api/discussz'   || //评论的增加不用阻拦
+        req.url == '/api/tuling'
         ) {
         next();
     }else{
@@ -352,6 +353,49 @@ app.get('/api/imgCode', async(req, res)  => {
 		}
         this.checkCode = code; //把code值赋给验证码  
         res.send(code);
+
+})
+
+//请求图灵api
+app.post('/api/tuling', async(req, res)  => {
+    var rt = require('request');
+    var body = {
+        "reqType":0,
+        "perception": {
+            "inputText": {
+                "text": req.body
+            },
+            "selfInfo": {
+                "location": {
+                    "city": "深圳市",
+                    "province": "深圳",
+                    "street": "坪山大道"
+                }
+            }
+        },
+        "userInfo": {
+            "apiKey": "e7c3784ce20f40a18466072c9fdd84d3",
+            "userId": "515118"
+        }
+    }
+
+    var url="http://openapi.tuling123.com/openapi/api/v2";
+    var requestData= body;
+    rt({
+        url: url,
+        method: "POST",
+        json: true,
+        headers: {
+            "content-type": "application/json",
+        },
+        body: JSON.stringify(requestData)
+    }, function(error, response, body) {
+        if (!error &&  response.statusCode == 200) {
+            //console.log(body) // 请求成功的处理逻辑
+            console.log(body.results[0].values)
+            res.send({status:200,msg:  body.results[0].values  })
+        }
+    }); 
 
 })
 

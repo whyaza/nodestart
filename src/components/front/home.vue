@@ -8,7 +8,7 @@
         {{ body2 }}
       </p>
       <p class="lead">
-        <router-link to="/first" class="btn btn-lg btn-default">Look more</router-link>
+        <router-link to="/chat" class="btn btn-lg btn-default">与我聊天</router-link>
       </p>
     </div>
 </template>
