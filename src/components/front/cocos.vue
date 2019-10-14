@@ -45,7 +45,7 @@ export default {
     },
   methods:{
     tologin(){
-      console.log("dao1");
+      //console.log("dao1");
       this.$router.push({path:"/login"})
     }
   }

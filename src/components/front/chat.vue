@@ -17,7 +17,7 @@
             </li>
         </ul>
 
-        <el-form ref="form" :model="form" :inline="true">
+        <el-form ref="form" :model="form" :inline="true" @submit.native.prevent>
             <el-form-item>
                 <el-input v-model="form.matter"></el-input>
             </el-form-item>

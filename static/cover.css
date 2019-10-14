@@ -108,10 +108,21 @@ body {
 /*
  * Cover
  */
-
-.cover {
-  padding: 0 20px;
+ /*如果浏览器最小的宽比700都大，那就变*/
+ @media screen and (min-width: 700px){
+  .cover {
+    padding-top: 70px;
+    margin-bottom: 70px;
+  }
 }
+
+@media screen and (max-width: 368px){
+  .cover {
+    padding: 0 20px;
+  }
+}
+
+
 .cover .btn-lg {
   padding: 10px 20px;
   font-weight: bold;

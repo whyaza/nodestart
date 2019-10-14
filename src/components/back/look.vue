@@ -85,6 +85,7 @@ export default {
     getShowCount(){
       this.$http.get('/articlesTotalCount').then(res => {
         this.totalCount = res.data.totalCount;
+        //console.log(this.totalCount )   //查出来的是11没问题
       })
     },
     //按页获得
@@ -100,7 +101,7 @@ export default {
           this.$router.push({path: '/login'});
         }
 
-        console.log(res);
+        //console.log(res);
         this.articles = res.data.articlesf;
         this.totalCount = res.data.total;
       })

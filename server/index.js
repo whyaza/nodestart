@@ -275,7 +275,6 @@ app.post('/api/articlesf/:pageIndex/:pageSize', async(req,res) => {
     )
     
     let tlen = articlesfff.length
-
     res.send({status: 200, articlesf:articlesf, total: tlen});
 })
 
@@ -291,7 +290,7 @@ app.get('/api/fr/articlesf/:pageIndex/:pageSize', async(req,res) => {
     let getPage = parseInt(req.params.pageIndex) - 1
     let getLimit = parseInt(req.params.pageSize)
 
-    let articlesf = await Article.find({},{time:1,title:1,body:1}).sort({_id:-1}).limit(getLimit).skip(getPage* getLimit).exec()
+    let articlesf = await Article.find({}).sort({_id:-1}).limit(getLimit).skip(getPage* getLimit).exec()
     res.send({status: 200, articlesf:articlesf});
 
 })

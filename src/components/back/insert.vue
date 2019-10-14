@@ -25,6 +25,12 @@ export default {
   methods:{
       onSubmit(){
           //第二个参数为请求体
+          if (this.article.title === undefined){
+            this.article.title = "未定义标题";
+          }
+          if (this.article.body === undefined){
+            this.article.body = "未定义内容";
+          }
           this.$http.post("/articles", this.article).then(res =>{
             this.$message({
               showClose: true,
