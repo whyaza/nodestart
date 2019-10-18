@@ -1,6 +1,6 @@
 <template>
  
-  <div class="inner cover">
+  <div class="cover">
     <el-collapse @change="handleChange" >
       <div v-for="article in articles" :key="article.time">
         <el-collapse-item :title="article.title+ '@' + article.time">
