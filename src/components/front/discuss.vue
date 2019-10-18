@@ -1,6 +1,6 @@
 <template>
     <div class="discuss">
-      <div class="block inner cover">
+      <div class="block cover">
         <el-tree
           :data="data"
           node-key="id"
