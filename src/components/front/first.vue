@@ -70,10 +70,11 @@ export default {
       },
     },
     created(){
+      
       this.getShowCount();
       this.handleCurrentChange();
       
-    }
+    },
 }
 </script>
 

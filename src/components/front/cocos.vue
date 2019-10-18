@@ -22,7 +22,7 @@
             </div>
           </div>
 
-          <div class="inner cover">
+          <div class="cover cts">
               <router-view></router-view>
           </div>
 
